@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/dotnet
+{
+  "name": "C# (.NET)",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/dotnet:1-8.0-bookworm",
+  // "features": {
+  // 	"ghcr.io/devcontainers/features/node:1": {},
+  // 	"ghcr.io/devcontainers-contrib/features/angular-cli:2": {}
+  // }
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20.11.1", // Use Node.js version 20.11.1
+      "npm": "10.2.4", // Use npm version 10.2.4
+      "packageManager": "pnpm" // Use pnpm as the default package manager
+    },
+    "ghcr.io/devcontainers-contrib/features/angular-cli:2": {
+      "version": "17.3.2" // Use Angular CLI version 17.3.2
+    }
+  }
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [5000, 5001],
+  // "portsAttributes": {
+  //		"5001": {
+  //			"protocol": "https"
+  //		}
+  // }
+
+  // Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "dotnet restore",
+
+  // Configure tool-specific properties.
+  // "customizations": {},
+
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+}
