@@ -15,4 +15,8 @@
     <ProjectReference Include="..\ItemCatalogue.Infrastructure\ItemCatalogue.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Db\**" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
 </Project>
