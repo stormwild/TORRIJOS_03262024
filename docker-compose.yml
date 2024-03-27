@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  itemcatalogue.api:
+    image: itemcatalogueapi:1.0
+    build:
+      context: .
+      dockerfile: ./src/ItemCatalogue.Api/Dockerfile
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - itemcataloguenet
+
+networks:
+  itemcataloguenet:
+    driver: bridge
