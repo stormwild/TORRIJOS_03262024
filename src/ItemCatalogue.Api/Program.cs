@@ -1,4 +1,10 @@
+using ItemCatalogue.Infrastructure;
+
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Logging.AddConsole();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -16,6 +22,13 @@ builder.Services.AddOpenApiDocument(options =>
     };
 });
 
+builder.Services.AddDbContext<CatalogueDbContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("Default"));
+});
+
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -25,31 +38,23 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi();
 }
 
-app.UseHttpsRedirection();
-
-var summaries = new[]
+using (var scope = app.Services.CreateScope())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<CatalogueDbContext>();
+    context.Database.EnsureCreated();
+    // context.Database.Migrate();
+    Seeder.Initialize(context);
 };
 
-app.MapGet("/weatherforecast", () =>
+app.UseHttpsRedirection();
+
+
+app.MapGet("/", async (ILogger<Program> logger, CatalogueDbContext ctx, HttpResponse response) =>
 {
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    logger.LogInformation("GET /");
+    var catalogue = await ctx.Catalogues.SingleAsync();
+    await response.WriteAsync($"Hello, world! {catalogue.Name}");
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
