@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71327903-BA21-4B71-907E-0AF4AB4B717C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Api", "src\ItemCatalogue.Api\ItemCatalogue.Api.csproj", "{62B48C63-9430-4F24-87CF-DB2CB3F45C65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +14,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{62B48C63-9430-4F24-87CF-DB2CB3F45C65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62B48C63-9430-4F24-87CF-DB2CB3F45C65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62B48C63-9430-4F24-87CF-DB2CB3F45C65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62B48C63-9430-4F24-87CF-DB2CB3F45C65}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{62B48C63-9430-4F24-87CF-DB2CB3F45C65} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 	EndGlobalSection
 EndGlobal

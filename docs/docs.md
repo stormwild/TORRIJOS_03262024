@@ -20,6 +20,8 @@
 
 [Set up token authentication with OpenIddict in .NET 5](https://nwb.one/blog/openid-connect-dotnet-5)
 
+[Getting started with the OpenIddict web providers | Kévin Chalet's blog](https://kevinchalet.com/2022/12/16/getting-started-with-the-openiddict-web-providers/)
+
 ### Infrastructure
 
 [Central Package Management | Microsoft Learn](https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management)
