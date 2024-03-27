@@ -18,6 +18,10 @@
 
 [Setup Auth Server: OpenIddict](https://chat.openai.com/share/f7281293-5d99-4365-b08f-e29357f494d5)
 
+[Set up token authentication with OpenIddict in .NET 5](https://nwb.one/blog/openid-connect-dotnet-5)
+
+[Getting started with the OpenIddict web providers | Kévin Chalet's blog](https://kevinchalet.com/2022/12/16/getting-started-with-the-openiddict-web-providers/)
+
 ### Infrastructure
 
 [Central Package Management | Microsoft Learn](https://learn.microsoft.com/en-us/nuget/consume-packages/central-package-management)

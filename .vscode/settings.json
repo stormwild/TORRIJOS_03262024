@@ -1,0 +1,27 @@
+{
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "mssqlOptions": {
+        "appName": "SQLTools",
+        "useUTC": true,
+        "encrypt": true
+      },
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 4010,
+      "driver": "MSSQL",
+      "name": "Local Lpos",
+      "group": "LoanMarket",
+      "database": "USR_CRM",
+      "username": "sa",
+      "password": "Str0ngeR"
+    },
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "CatalogueDb",
+      "database": "${workspaceFolder:TORRIJOS_03262024}/src/ItemCatalogue.Api/Db/catalogue.db"
+    }
+  ]
+}
