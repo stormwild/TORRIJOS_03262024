@@ -1,5 +1,5 @@
 {
-  "sqltools.useNodeRuntime": true,
+  "sqltools.useNodeRuntime": false,
   "sqltools.connections": [
     {
       "mssqlOptions": {
@@ -23,5 +23,6 @@
       "name": "CatalogueDb",
       "database": "${workspaceFolder:TORRIJOS_03262024}/src/ItemCatalogue.Api/Db/catalogue.db"
     }
-  ]
+  ],
+  "sqltools.disableNodeDetectNotifications": false
 }

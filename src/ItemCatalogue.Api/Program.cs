@@ -1,5 +1,12 @@
+using System.Diagnostics;
+using System.Security.Cryptography;
+
+using ItemCatalogue.Api.Modules.ApiKeyModule;
+using ItemCatalogue.Api.Modules.SwaggerModule;
 using ItemCatalogue.Infrastructure;
 
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,18 +16,8 @@ builder.Logging.AddConsole();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddOpenApiDocument(options =>
-{
-    options.DocumentName = "Item Catalogue API v1";
-    options.Title = "Item Catalogue API";
-    options.Description = "A simple API to manage items in a catalogue";
-    options.Version = "1.0";
-    options.PostProcess = document =>
-    {
-        document.Info.Title = "Item Catalogue API";
-        document.Info.Description = "A simple API to manage items in a catalogue";
-    };
-});
+builder.Services.AddSwaggerConfiguration();
+
 
 builder.Services.AddDbContext<CatalogueDbContext>(options =>
 {
@@ -28,6 +25,12 @@ builder.Services.AddDbContext<CatalogueDbContext>(options =>
 });
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddHealthChecks()
+                .AddDbContextCheck<CatalogueDbContext>();
+
+builder.Services.AddApiKeyAuthentication(builder.Configuration);
+builder.Services.AddApiKeyAuthorization();
 
 var app = builder.Build();
 
@@ -42,19 +45,33 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<CatalogueDbContext>();
-    context.Database.EnsureCreated();
-    // context.Database.Migrate();
+    context.Database.EnsureCreated(); // comment out when running dotnet ef database update 
+    // context.Database.Migrate(); // needed when running dotnet ef database update
     Seeder.Initialize(context);
 };
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ApiKeyAuthorization>();
 
+app.MapHealthChecks("/health");
 
-app.MapGet("/", async (ILogger<Program> logger, CatalogueDbContext ctx, HttpResponse response) =>
+app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext ctx) =>
 {
-    logger.LogInformation("GET /");
+    var start = Stopwatch.StartNew();
+    // _logger.LogInformation("Before GET /");
+
     var catalogue = await ctx.Catalogues.SingleAsync();
-    await response.WriteAsync($"Hello, world! {catalogue.Name}");
-});
+
+    // _logger.LogInformation("After GET / {ElapsedMilliseconds}", start.ElapsedMilliseconds);
+    start.Stop();
+
+    return Results.Ok($"Hello, world! {catalogue.Name}");
+})
+.WithGroupName("HelloWorld")
+.WithDisplayName("Hello World")
+.WithName("HelloWorld")
+.Produces<string>(StatusCodes.Status200OK, "text/plain")
+.Produces<ProblemDetails>(StatusCodes.Status401Unauthorized)
+.RequireApiKey();
 
 app.Run();

@@ -18,7 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Directory.Build.props = Directory.Build.props
 		nuget.config = nuget.config
 		.editorconfig = .editorconfig
+		build.sh = build.sh
+		run.api.sh = run.api.sh
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8}"
+	ProjectSection(SolutionItems) = preProject
 		docs\docs.md = docs\docs.md
+		docs\snippets.md = docs\snippets.md
 	EndProjectSection
 EndProject
 Global
@@ -47,5 +55,6 @@ Global
 		{62B48C63-9430-4F24-87CF-DB2CB3F45C65} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 		{6B3BE0C6-00F3-4BEE-8F94-1C8463140F33} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 		{80EFA4C5-C577-413F-866D-24656EE3F86D} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
+		{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8} = {FF11E8FE-059A-4C3D-AD03-62C47C5154BE}
 	EndGlobalSection
 EndGlobal
