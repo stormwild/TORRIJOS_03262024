@@ -1,6 +1,9 @@
 @ItemCatalogue.Api_HostAddress = http://localhost:5125
+@ItemCatalogue.Api_Key = "_ic_9fad2b4be649887c70a58b869c8838075b0dcf91554e64e2b367ba3079d079f5_fea"
 
-GET {{ItemCatalogue.Api_HostAddress}}/weatherforecast/
+GET {{ItemCatalogue.Api_HostAddress}}/
+X-Api-Key: {{ItemCatalogue.Api_Key}}
 Accept: application/json
+Content-Type: application/json
 
 ###
