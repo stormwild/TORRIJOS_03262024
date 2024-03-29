@@ -164,3 +164,23 @@ services.AddOpenApiDocument(document =>
 [c# - ASP.NET core - simple API key authentication - Stack Overflow](https://stackoverflow.com/questions/70277577/asp-net-core-simple-api-key-authentication)
 
 [Using API Key Authentication To Secure ASP.NET Core Web API](https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/)
+
+## Structure
+
+[Maybe it's time to rethink our project structure with .NET 6](https://timdeschryver.dev/blog/maybe-its-time-to-rethink-our-project-structure-with-dot-net-6)
+
+> ```bash 
+> WebApplication
+> │   appsettings.json
+> │   Program.cs
+> │   WebApplication.csproj
+> │
+> ├───Modules
+> │   └───Orders
+> │       │   OrdersModule.cs
+> │       ├───Models
+> │       │       Order.cs
+> │       └───Endpoints
+> │               GetOrders.cs
+> │               PostOrder.cs
+> ```
