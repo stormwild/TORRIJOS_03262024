@@ -5,30 +5,31 @@ namespace ItemCatalogue.Api.Modules.SwaggerModule;
 
 public static class SwaggerExtensions
 {
-    public static void AddSwaggerConfiguration(this IServiceCollection services)
+    public static string SwaggerSectionName = "Swagger:Info";
+    public static void AddSwaggerConfiguration(this IServiceCollection services, ConfigurationManager config)
     {
+        var info = config.GetSection(SwaggerSectionName).Get<OpenApiInfo>();
+
+        ArgumentNullException.ThrowIfNull(info, nameof(info));
+
         services.AddOpenApiDocument(document =>
         {
-            document.DocumentName = "Item Catalogue API v1";
-            document.Title = "Item Catalogue API";
-            document.Description = "A simple API to manage items in a catalogue";
-            document.Version = "1.0";
-            document.PostProcess = document =>
-            {
-                document.Info.Title = "Item Catalogue API";
-                document.Info.Description = "A simple API to manage items in a catalogue";
-            };
+            document.DocumentName = info.Title;
+            document.Title = info.Title;
+            document.Description = info.Description;
+            document.Version = info.Version;
+            document.PostProcess = d => d.Info = info;
 
-            document.AddSecurity("ApiKey", Enumerable.Empty<string>(), new OpenApiSecurityScheme
+            document.AddSecurity(ApiKeyConstants.ApiKeySecurity, [], new OpenApiSecurityScheme
             {
                 Type = OpenApiSecuritySchemeType.ApiKey,
-                Name = "X-API-KEY",
+                Name = ApiKeyConstants.ApiKeyHeaderName,
                 In = OpenApiSecurityApiKeyLocation.Header,
-                Description = "API key needed to access the endpoints"
+                Description = ApiKeyConstants.ApiKeySecurityDescription
             });
 
             document.OperationProcessors.Add(
-                new AspNetCoreOperationSecurityScopeProcessor("ApiKey"));
+                new AspNetCoreOperationSecurityScopeProcessor(ApiKeyConstants.ApiKeySecurity));
         });
     }
 }
