@@ -1,36 +1,32 @@
-using System.Diagnostics;
-using System.Security.Cryptography;
 
-using ItemCatalogue.Api.Modules.ApiKeyModule;
+using ItemCatalogue.Api.Modules.AuthenticationModule;
+using ItemCatalogue.Api.Modules.PersistenceModule;
 using ItemCatalogue.Api.Modules.SwaggerModule;
 using ItemCatalogue.Infrastructure;
 
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
-
-builder.Logging.AddConsole();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerConfiguration();
+builder.Services.AddSwaggerConfiguration(builder.Configuration);
 
-
-builder.Services.AddDbContext<CatalogueDbContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("Default"));
-});
-
+// Configure Database
+builder.Services.AddDbContext<CatalogueDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddHealthChecks()
-                .AddDbContextCheck<CatalogueDbContext>();
+builder.Services.AddAuthentication(ApiKeyAuthentication.SchemeName)
+    .AddScheme<ApiKeyAuthenticationOptions, ApiKeyAuthenticationHandler>(ApiKeyAuthentication.SchemeName, options =>
+    {
+        var apiKey = builder.Configuration["Authentication:ApiKey"] ?? throw new InvalidOperationException("ApiKey is not configured");
+        options.ApiKey = apiKey;
+    });
 
-builder.Services.AddApiKeyAuthentication(builder.Configuration);
-builder.Services.AddApiKeyAuthorization();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -41,37 +37,30 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUi();
 }
 
-using (var scope = app.Services.CreateScope())
+app.UseSeeder();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+
+app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext db, HttpContext ctx) =>
 {
-    var services = scope.ServiceProvider;
-    var context = services.GetRequiredService<CatalogueDbContext>();
-    context.Database.EnsureCreated(); // comment out when running dotnet ef database update 
-    // context.Database.Migrate(); // needed when running dotnet ef database update
-    Seeder.Initialize(context);
-};
+    var catalogue = await db.Catalogues.SingleAsync();
+    _logger.LogInformation("Hello, world! {Name}", catalogue.Name);
 
-app.UseHttpsRedirection();
-app.UseMiddleware<ApiKeyAuthorization>();
-
-app.MapHealthChecks("/health");
-
-app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext ctx) =>
-{
-    var start = Stopwatch.StartNew();
-    // _logger.LogInformation("Before GET /");
-
-    var catalogue = await ctx.Catalogues.SingleAsync();
-
-    // _logger.LogInformation("After GET / {ElapsedMilliseconds}", start.ElapsedMilliseconds);
-    start.Stop();
-
-    return Results.Ok($"Hello, world! {catalogue.Name}");
+    return Results.Ok($"Hello, world! {catalogue.Name} {ctx.User.Identity.IsAuthenticated} {ctx.User.Identity.Name}");
 })
-.WithGroupName("HelloWorld")
-.WithDisplayName("Hello World")
-.WithName("HelloWorld")
+.WithOpenApi(o =>
+{
+    o.Tags = [new OpenApiTag { Name = "Hello World" }];
+    o.Summary = "Hello World";
+    o.Description = "A simple hello world endpoint";
+
+    return o;
+})
 .Produces<string>(StatusCodes.Status200OK, "text/plain")
 .Produces<ProblemDetails>(StatusCodes.Status401Unauthorized)
-.RequireApiKey();
+.RequireAuthorization();
 
 app.Run();
+
