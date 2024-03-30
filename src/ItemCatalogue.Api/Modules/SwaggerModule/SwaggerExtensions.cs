@@ -1,4 +1,6 @@
-﻿using NSwag;
+﻿using ItemCatalogue.Api.Modules.AuthenticationModule;
+
+using NSwag;
 using NSwag.Generation.Processors.Security;
 
 namespace ItemCatalogue.Api.Modules.SwaggerModule;

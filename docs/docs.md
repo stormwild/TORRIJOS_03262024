@@ -164,3 +164,21 @@ services.AddOpenApiDocument(document =>
 [c# - ASP.NET core - simple API key authentication - Stack Overflow](https://stackoverflow.com/questions/70277577/asp-net-core-simple-api-key-authentication)
 
 [Using API Key Authentication To Secure ASP.NET Core Web API](https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/)
+
+[Securing API Endpoints with API Key Authentication in .NET (C#) | by Paul Ar | Medium | Level Up Coding](https://levelup.gitconnected.com/securing-api-endpoints-with-api-key-authentication-in-net-c-4c85e3ad9722)
+
+[API Key Authentication - Extending the native implementation](https://rmauro.dev/api-key-authentication-extending-the-native-implementation/)
+
+Extends built in Authentication in asp.net core
+
+## TypedResults
+
+[Organizing ASP.NET Core Minimal APIs - If broken it is, fix it you should](https://www.tessferrandez.com/blog/2023/10/31/organizing-minimal-apis.html#separate-out-the-functionality-from-the-endpoint-registrations)
+
+```csharp
+app.MapGet("/todoitems/{id}", async Task<Results<Ok<Todo>, NotFound>> (int id, TodoDb db) =>
+    await db.Todos.FindAsync(id)
+        is Todo todo
+            ? TypedResults.Ok(todo)
+            : TypedResults.NotFound());
+```

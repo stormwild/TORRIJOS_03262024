@@ -1,4 +1,5 @@
 
+using ItemCatalogue.Api;
 using ItemCatalogue.Api.Modules.AuthenticationModule;
 using ItemCatalogue.Api.Modules.PersistenceModule;
 using ItemCatalogue.Api.Modules.SwaggerModule;
@@ -59,8 +60,9 @@ app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext db, HttpCont
     return o;
 })
 .Produces<string>(StatusCodes.Status200OK, "text/plain")
-.Produces<ProblemDetails>(StatusCodes.Status401Unauthorized)
 .RequireAuthorization();
+
+app.MapCatalogueItems();
 
 app.Run();
 

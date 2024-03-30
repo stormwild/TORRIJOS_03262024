@@ -27,6 +27,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7E4E79C5-1
 	ProjectSection(SolutionItems) = preProject
 		docs\docs.md = docs\docs.md
 		docs\snippets.md = docs\snippets.md
+		docs\curl.sh = docs\curl.sh
+		docs\Authentication.http = docs\Authentication.http
 	EndProjectSection
 EndProject
 Global
