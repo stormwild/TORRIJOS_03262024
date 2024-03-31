@@ -222,3 +222,9 @@ public async Task Index_returns_blogs_ordered_by_name()
 [Integration Tests With WebApplicationFactory and Test Containers | Carl Paton | There are no silly questions](https://carlpaton.github.io/2022/07/integration-tests-with-webapplicationfactory-testcontainers/)
 
 [Integration tests in ASP.NET Core | Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0&source=recommendations)
+
+## Automate API Client
+
+[Automatically generating C# API clients on build with NSwag](https://blog.sanderaernouts.com/autogenerate-csharp-api-client-with-nswag)
+
+[NSwag v11 Tutorial: How to integrate NSwag into your ASP.NET Core Web API project - YouTube](https://www.youtube.com/watch?v=lF9ZZ8p2Ciw)

@@ -19,9 +19,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\ItemCatalogue.Api.Client\ItemCatalogue.Api.Client.csproj" />
     <ProjectReference Include="..\itemcatalogue.spa.angular.client\itemcatalogue.spa.angular.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ItemCatalogueApiClient\" />
   </ItemGroup>
 
 </Project>
