@@ -31,6 +31,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7E4E79C5-1
 		docs\Authentication.http = docs\Authentication.http
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7E7D71F3-22BE-44DB-A1DE-11BDE81CB676}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Tests", "tests\ItemCatalogue.Tests\ItemCatalogue.Tests.csproj", "{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +53,10 @@ Global
 		{80EFA4C5-C577-413F-866D-24656EE3F86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80EFA4C5-C577-413F-866D-24656EE3F86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80EFA4C5-C577-413F-866D-24656EE3F86D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -58,5 +66,6 @@ Global
 		{6B3BE0C6-00F3-4BEE-8F94-1C8463140F33} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 		{80EFA4C5-C577-413F-866D-24656EE3F86D} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 		{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8} = {FF11E8FE-059A-4C3D-AD03-62C47C5154BE}
+		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E} = {7E7D71F3-22BE-44DB-A1DE-11BDE81CB676}
 	EndGlobalSection
 EndGlobal

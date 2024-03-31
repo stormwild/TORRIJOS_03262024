@@ -1,4 +1,5 @@
 ﻿using ItemCatalogue.Core.Models;
+using ItemCatalogue.Core.Repositories;
 using ItemCatalogue.Infrastructure;
 
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -8,11 +9,11 @@ using Microsoft.OpenApi.Models;
 
 namespace ItemCatalogue.Api;
 
-public static class CatalogueItemsEndpoint
+public static class GetCatalogueItemsEndpoint
 {
     public static readonly int MAX_ITEMS = 1000;
 
-    public static void MapCatalogueItems(this WebApplication app)
+    public static void MapGetCatalogueItems(this WebApplication app)
     {
         app.MapGet("/catalogue/{catalogueId}/items", HandleAsync)
         .WithOpenApi(o =>
@@ -27,9 +28,9 @@ public static class CatalogueItemsEndpoint
     }
 
     public static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
-        [FromServices] CatalogueDbContext db, Guid catalogueId, CancellationToken ct)
+        ICatalogueRepository repository, Guid catalogueId, CancellationToken ct)
     {
-        var catalogue = await db.Catalogues.FirstOrDefaultAsync(c => c.Id == new CatalogueId(catalogueId), ct);
+        var catalogue = await repository.GetCatalogueItemsAsync(catalogueId, ct);
 
         return catalogue is null
             ? TypedResults.NotFound()
