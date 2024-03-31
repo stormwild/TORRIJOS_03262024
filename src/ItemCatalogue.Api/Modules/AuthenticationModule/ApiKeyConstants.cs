@@ -1,4 +1,4 @@
-﻿namespace ItemCatalogue.Api;
+﻿namespace ItemCatalogue.Api.Modules.AuthenticationModule;
 
 public static class ApiKeyConstants
 {

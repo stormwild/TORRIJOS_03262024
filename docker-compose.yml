@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: ./src/ItemCatalogue.Api/Dockerfile
     ports:
-      - "5000:8080"
+      - "5125:5125"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     networks:

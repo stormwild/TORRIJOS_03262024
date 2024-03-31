@@ -1,7 +1,6 @@
-@ItemCatalogueApi_HostAddress = http://localhost:5125
+@Authentication_HostAddress = http://localhost:5125
 
-GET {{ItemCatalogueApi_HostAddress}}/
+GET {{Authentication_HostAddress}}
 Accept: application/json
 X-Api-Key: _ic_9fad2b4be649887c70a58b869c8838075b0dcf91554e64e2b367ba3079d079f5_fea
-
 ###

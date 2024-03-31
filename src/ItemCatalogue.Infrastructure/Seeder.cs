@@ -14,7 +14,6 @@ public static class Seeder
             context.Catalogues.Add(catalogue);
         }
 
-
         if (!context.Categories.Any())
         {
             var category = new Category { Id = new CategoryId(NewId.NextGuid()), Name = "Default Category" };

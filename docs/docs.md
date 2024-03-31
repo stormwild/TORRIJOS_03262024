@@ -164,3 +164,61 @@ services.AddOpenApiDocument(document =>
 [c# - ASP.NET core - simple API key authentication - Stack Overflow](https://stackoverflow.com/questions/70277577/asp-net-core-simple-api-key-authentication)
 
 [Using API Key Authentication To Secure ASP.NET Core Web API](https://www.c-sharpcorner.com/article/using-api-key-authentication-to-secure-asp-net-core-web-api/)
+
+[Securing API Endpoints with API Key Authentication in .NET (C#) | by Paul Ar | Medium | Level Up Coding](https://levelup.gitconnected.com/securing-api-endpoints-with-api-key-authentication-in-net-c-4c85e3ad9722)
+
+[API Key Authentication - Extending the native implementation](https://rmauro.dev/api-key-authentication-extending-the-native-implementation/)
+
+Extends built in Authentication in asp.net core
+
+## TypedResults
+
+[Organizing ASP.NET Core Minimal APIs - If broken it is, fix it you should](https://www.tessferrandez.com/blog/2023/10/31/organizing-minimal-apis.html#separate-out-the-functionality-from-the-endpoint-registrations)
+
+```csharp
+app.MapGet("/todoitems/{id}", async Task<Results<Ok<Todo>, NotFound>> (int id, TodoDb db) =>
+    await db.Todos.FindAsync(id)
+        is Todo todo
+            ? TypedResults.Ok(todo)
+            : TypedResults.NotFound());
+```
+
+[scott-xu/EntityFramework.Testing: EntityFramework Testing](https://github.com/scott-xu/EntityFramework.Testing)
+
+```csharp
+[TestMethod]
+public async Task Index_returns_blogs_ordered_by_name()
+{
+    // Create some test data
+    var data = new List<Blog>
+    {
+        new Blog{ Name = "BBB" },
+        new Blog{ Name = "CCC" },
+        new Blog{ Name = "AAA" }
+    };
+
+    // Create a DbSet substitute.
+    var set = Substitute.For<DbSet<Blog>, IQueryable<Blog>, IDbAsyncEnumerable<Blog>>()
+                        .SetupData(data);
+
+    var context = Substitute.For<BloggingContext>();
+    context.Blogs.Returns(set);
+
+    // Create a BlogsController and invoke the Index action
+    var controller = new BlogsController(context);
+    var result = await controller.Index();
+
+    // Check the results
+    var blogs = (List<Blog>)result.Model;
+    Assert.AreEqual(3, blogs.Count());
+    Assert.AreEqual("AAA", blogs[0].Name);
+    Assert.AreEqual("BBB", blogs[1].Name);
+    Assert.AreEqual("CCC", blogs[2].Name);
+}
+```
+
+## Integration Tests
+
+[Integration Tests With WebApplicationFactory and Test Containers | Carl Paton | There are no silly questions](https://carlpaton.github.io/2022/07/integration-tests-with-webapplicationfactory-testcontainers/)
+
+[Integration tests in ASP.NET Core | Microsoft Learn](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0&source=recommendations)

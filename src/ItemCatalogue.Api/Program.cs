@@ -1,14 +1,16 @@
 
+using ItemCatalogue.Api;
 using ItemCatalogue.Api.Modules.AuthenticationModule;
 using ItemCatalogue.Api.Modules.PersistenceModule;
 using ItemCatalogue.Api.Modules.SwaggerModule;
 using ItemCatalogue.Infrastructure;
 
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddProblemDetails();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,6 +20,8 @@ builder.Services.AddSwaggerConfiguration(builder.Configuration);
 // Configure Database
 builder.Services.AddDbContext<CatalogueDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddRepositories();
 
 builder.Services.AddAuthentication(ApiKeyAuthentication.SchemeName)
     .AddScheme<ApiKeyAuthenticationOptions, ApiKeyAuthenticationHandler>(ApiKeyAuthentication.SchemeName, options =>
@@ -35,6 +39,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
     app.UseSwaggerUi();
+}
+
+if (app.Environment.IsProduction())
+{
+    app.UseExceptionHandler();
 }
 
 app.UseSeeder();
@@ -59,8 +68,10 @@ app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext db, HttpCont
     return o;
 })
 .Produces<string>(StatusCodes.Status200OK, "text/plain")
-.Produces<ProblemDetails>(StatusCodes.Status401Unauthorized)
 .RequireAuthorization();
+
+app.MapGetCatalogueItems();
 
 app.Run();
 
+public partial class Program { }
