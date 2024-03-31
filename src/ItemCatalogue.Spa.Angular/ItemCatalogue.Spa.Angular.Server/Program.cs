@@ -44,12 +44,8 @@ var summaries = new[]
     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
 };
 
-app.MapGet("/weatherforecast", async (IItemCatalogueApiClient client, IOptions<CatalogueId> options) =>
+app.MapGet("/weatherforecast", () =>
 {
-    var response = await client.GetCatalogueItemsAsync(options.Value.Value);
-
-    Debug.WriteLine($"CatalogueName: {response.Name}");
-
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -61,6 +57,18 @@ app.MapGet("/weatherforecast", async (IItemCatalogueApiClient client, IOptions<C
     return forecast;
 })
 .WithName("GetWeatherForecast")
+.WithOpenApi();
+
+app.MapGet("/catalogue", async (IItemCatalogueApiClient client, IOptions<CatalogueId> options) =>
+{
+    var response = await client.GetCatalogueItemsAsync(options.Value.Value);
+
+    Debug.WriteLine($"CatalogueName: {response.Name}");
+    Debug.WriteLine($"Items Count: {response.Items.Count}");
+
+    return response;
+})
+.WithName("CatalogueItems")
 .WithOpenApi();
 
 app.MapFallbackToFile("/index.html");
