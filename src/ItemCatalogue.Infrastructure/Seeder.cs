@@ -41,7 +41,7 @@ public static class Seeder
 
         await context.SaveChangesAsync();
 
-        var defaultCatalogue = await context.Catalogues.FirstOrDefaultAsync();
+        var defaultCatalogue = await context.Catalogues.Include(c => c.Items).FirstOrDefaultAsync();
         var defaultCategory = await context.Categories.FirstOrDefaultAsync();
 
         if (defaultCatalogue is not null && defaultCategory is not null && defaultCatalogue.Items.Count == 0)

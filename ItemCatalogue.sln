@@ -25,10 +25,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8}"
 	ProjectSection(SolutionItems) = preProject
+		docs\angular-displays-data-from-bff-api.png = docs\angular-displays-data-from-bff-api.png
+		docs\api-calls-api-using-api-key.png = docs\api-calls-api-using-api-key.png
 		docs\Authentication.http = docs\Authentication.http
 		docs\curl.sh = docs\curl.sh
 		docs\docs.md = docs\docs.md
 		docs\snippets.md = docs\snippets.md
+		docs\visual-studio-2022-multiple-start-up-projects.png = docs\visual-studio-2022-multiple-start-up-projects.png
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7E7D71F3-22BE-44DB-A1DE-11BDE81CB676}"
