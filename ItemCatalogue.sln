@@ -5,35 +5,39 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{71327903-BA21-4B71-907E-0AF4AB4B717C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Api", "src\ItemCatalogue.Api\ItemCatalogue.Api.csproj", "{62B48C63-9430-4F24-87CF-DB2CB3F45C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemCatalogue.Api", "src\ItemCatalogue.Api\ItemCatalogue.Api.csproj", "{62B48C63-9430-4F24-87CF-DB2CB3F45C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Core", "src\ItemCatalogue.Core\ItemCatalogue.Core.csproj", "{6B3BE0C6-00F3-4BEE-8F94-1C8463140F33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemCatalogue.Core", "src\ItemCatalogue.Core\ItemCatalogue.Core.csproj", "{6B3BE0C6-00F3-4BEE-8F94-1C8463140F33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Infrastructure", "src\ItemCatalogue.Infrastructure\ItemCatalogue.Infrastructure.csproj", "{80EFA4C5-C577-413F-866D-24656EE3F86D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemCatalogue.Infrastructure", "src\ItemCatalogue.Infrastructure\ItemCatalogue.Infrastructure.csproj", "{80EFA4C5-C577-413F-866D-24656EE3F86D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FF11E8FE-059A-4C3D-AD03-62C47C5154BE}"
 	ProjectSection(SolutionItems) = preProject
-		Directory.Packages.props = Directory.Packages.props
-		README.md = README.md
-		Directory.Build.props = Directory.Build.props
-		nuget.config = nuget.config
 		.editorconfig = .editorconfig
 		build.sh = build.sh
-		run.api.sh = run.api.sh
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		docker-compose.yml = docker-compose.yml
+		nuget.config = nuget.config
+		README.md = README.md
+		run.api.sh = run.api.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8}"
 	ProjectSection(SolutionItems) = preProject
+		docs\Authentication.http = docs\Authentication.http
+		docs\curl.sh = docs\curl.sh
 		docs\docs.md = docs\docs.md
 		docs\snippets.md = docs\snippets.md
-		docs\curl.sh = docs\curl.sh
-		docs\Authentication.http = docs\Authentication.http
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{7E7D71F3-22BE-44DB-A1DE-11BDE81CB676}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItemCatalogue.Tests", "tests\ItemCatalogue.Tests\ItemCatalogue.Tests.csproj", "{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemCatalogue.Tests", "tests\ItemCatalogue.Tests\ItemCatalogue.Tests.csproj", "{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ItemCatalogue.Spa.Angular.Server", "src\ItemCatalogue.Spa.Angular\ItemCatalogue.Spa.Angular.Server\ItemCatalogue.Spa.Angular.Server.csproj", "{55100460-605A-4278-A175-6AC37FC40B9F}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "itemcatalogue.spa.angular.client", "src\ItemCatalogue.Spa.Angular\itemcatalogue.spa.angular.client\itemcatalogue.spa.angular.client.esproj", "{25FB733A-26AE-4B28-B1F7-E7B45F31085A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +61,16 @@ Global
 		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55100460-605A-4278-A175-6AC37FC40B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55100460-605A-4278-A175-6AC37FC40B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55100460-605A-4278-A175-6AC37FC40B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55100460-605A-4278-A175-6AC37FC40B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,5 +81,10 @@ Global
 		{80EFA4C5-C577-413F-866D-24656EE3F86D} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
 		{7E4E79C5-1B95-4BF3-BE1D-DC78E2C11DF8} = {FF11E8FE-059A-4C3D-AD03-62C47C5154BE}
 		{6DD86E3E-0DC6-45BB-BAEA-637531F45A2E} = {7E7D71F3-22BE-44DB-A1DE-11BDE81CB676}
+		{55100460-605A-4278-A175-6AC37FC40B9F} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
+		{25FB733A-26AE-4B28-B1F7-E7B45F31085A} = {71327903-BA21-4B71-907E-0AF4AB4B717C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35371589-0239-488D-BC28-D247BB4FA8E8}
 	EndGlobalSection
 EndGlobal
