@@ -14,7 +14,7 @@ public static class PersistenceExtensions
         services.AddScoped<ICatalogueRepository, CatalogueRepository>();
     }
 
-    public static void UseSeeder(this WebApplication app)
+    public static async Task UseSeeder(this WebApplication app)
     {
         using (var scope = app.Services.CreateScope())
         {
@@ -27,7 +27,7 @@ public static class PersistenceExtensions
             context.Database.EnsureCreated(); // needed when running dotnet ef database update
             // context.Database.Migrate(); // needed when running dotnet ef database update
 
-            Seeder.Initialize(context);
+            await Seeder.Initialize(context);
         };
     }
 }

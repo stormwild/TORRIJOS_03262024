@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ItemCatalogue.Tests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:61283;http://localhost:61284"
+    }
+  }
+}

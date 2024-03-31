@@ -4,5 +4,5 @@ namespace ItemCatalogue.Core.Repositories;
 
 public interface ICatalogueRepository
 {
-    Task<Catalogue> GetCatalogueItemsAsync(Guid catalogueId, CancellationToken ct);
+    Task<Catalogue?> GetCatalogueItemsAsync(Guid catalogueId, CancellationToken ct);
 }

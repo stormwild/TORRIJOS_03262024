@@ -46,7 +46,7 @@ if (app.Environment.IsProduction())
     app.UseExceptionHandler();
 }
 
-app.UseSeeder();
+await app.UseSeeder();
 
 app.UseAuthentication();
 app.UseAuthorization();
