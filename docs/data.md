@@ -45,3 +45,12 @@ itemId: 41520e0e-7649-4249-8d18-c0a02421a5e6
   ]
 }
 ```
+
+## SaveItem
+
+```json
+{
+  "name": "Cool New Widget G",
+  "description": "Cool New Updated"
+}
+```

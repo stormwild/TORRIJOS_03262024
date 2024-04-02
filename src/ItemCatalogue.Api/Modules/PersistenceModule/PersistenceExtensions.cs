@@ -2,7 +2,7 @@
 
 using ItemCatalogue.Core.Repositories;
 using ItemCatalogue.Infrastructure;
-
+using ItemCatalogue.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace ItemCatalogue.Api.Modules.PersistenceModule;

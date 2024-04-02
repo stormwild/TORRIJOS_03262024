@@ -15,6 +15,7 @@ public static class CatalogueEndpoints
         group.MapItemGetById();
 
         group.MapCreateItem();
+        group.MapSaveItem();
 
         group.WithOpenApi(o =>
         {

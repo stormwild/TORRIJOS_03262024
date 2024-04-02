@@ -1,6 +1,6 @@
 using ItemCatalogue.Core.Models;
 
-namespace ItemCatalogue.Infrastructure;
+namespace ItemCatalogue.Infrastructure.Repositories;
 
 public interface ICategoryRepository
 {

@@ -3,7 +3,7 @@ using ItemCatalogue.Core.Repositories;
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ItemCatalogue.Infrastructure;
+namespace ItemCatalogue.Infrastructure.Repositories;
 
 public class ItemRepository : IItemRepository
 {
@@ -43,5 +43,26 @@ public class ItemRepository : IItemRepository
         var entries = await _db.SaveChangesAsync(ct);
 
         return (item, entries);
+    }
+
+    public async Task<(Item? item, int entries)> SaveItemAsync(Item item, CancellationToken ct)
+    {
+        var existingItem = await _db.Items.FindAsync(item.Id, ct);
+
+        if (existingItem is null)
+        {
+            return (null, 0);
+        }
+
+        _db.Entry(existingItem).CurrentValues.SetValues(item);
+
+        var entries = await _db.SaveChangesAsync(ct);
+
+        return (item, entries);
+    }
+
+    public async Task<int> CommitAsync(CancellationToken ct)
+    {
+        return await _db.SaveChangesAsync(ct);
     }
 }

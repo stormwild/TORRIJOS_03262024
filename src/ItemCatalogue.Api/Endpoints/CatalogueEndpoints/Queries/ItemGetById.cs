@@ -22,13 +22,13 @@ public static class ItemGetById
         return group;
     }
 
-    private static async Task<Results<Ok<ItemDto>, NotFound>> HandleAsync(IItemRepository repository, Guid catalogueId, Guid itemId, CancellationToken ct)
+    private static async Task<Results<Ok<CatalogueItem>, NotFound>> HandleAsync(IItemRepository repository, Guid catalogueId, Guid itemId, CancellationToken ct)
     {
         var item = await repository.GetItemByIdAsync(new CatalogueId(catalogueId), new ItemId(itemId), ct);
 
         return item is null
             ? TypedResults.NotFound()
-            : TypedResults.Ok(new ItemDto(
+            : TypedResults.Ok(new CatalogueItem(
                 item.Id.Value,
                 item.Name,
                 item.PrimaryCategory.Name));

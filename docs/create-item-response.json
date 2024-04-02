@@ -1,0 +1,27 @@
+{
+  "id": {
+    "value": "41520e0e-7649-4249-8d18-c0a02421a5e6"
+  },
+  "catalogueId": {
+    "value": "88bd0000-f588-04d9-3c54-08dc4e40d836"
+  },
+  "name": "Cool New Widget G",
+  "description": "Cool New Created",
+  "primaryCategoryId": {
+    "value": "88bd0000-f588-04d9-f9cd-08dc4e40d83e"
+  },
+  "primaryCategory": {
+    "id": {
+      "value": "88bd0000-f588-04d9-f9cd-08dc4e40d83e"
+    },
+    "name": "Default Category"
+  },
+  "categories": [
+    {
+      "id": {
+        "value": "88bd0000-f588-04d9-f9cd-08dc4e40d83e"
+      },
+      "name": "Default Category"
+    }
+  ]
+}

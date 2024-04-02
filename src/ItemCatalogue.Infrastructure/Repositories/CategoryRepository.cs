@@ -2,7 +2,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace ItemCatalogue.Infrastructure;
+namespace ItemCatalogue.Infrastructure.Repositories;
 
 public class CategoryRepository : ICategoryRepository
 {

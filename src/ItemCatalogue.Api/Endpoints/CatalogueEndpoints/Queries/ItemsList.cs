@@ -37,7 +37,7 @@ public static class ItemsList
             : TypedResults.Ok(new CatalogueItems(
                 catalogue.Id.Value,
                 catalogue.Name,
-                catalogue.Items.Select(i => new ItemDto(
+                catalogue.Items.Select(i => new CatalogueItem(
                     i.Id.Value,
                     i.Name,
                     i.PrimaryCategory.Name))

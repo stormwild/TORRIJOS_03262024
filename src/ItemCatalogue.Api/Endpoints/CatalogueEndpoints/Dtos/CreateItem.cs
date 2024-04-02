@@ -1,6 +1,5 @@
 ﻿using ItemCatalogue.Core.Models;
 
-using Microsoft.AspNetCore.Mvc;
 using FluentValidation;
 
 namespace ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Dtos;
