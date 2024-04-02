@@ -22,7 +22,7 @@ public static class ItemGetById
         return group;
     }
 
-    private static async Task<Results<Ok<CatalogueItem>, NotFound>> HandleAsync(IItemRepository repository, Guid catalogueId, Guid itemId, CancellationToken ct)
+    public static async Task<Results<Ok<CatalogueItem>, NotFound>> HandleAsync(IItemRepository repository, Guid catalogueId, Guid itemId, CancellationToken ct)
     {
         var item = await repository.GetItemByIdAsync(new CatalogueId(catalogueId), new ItemId(itemId), ct);
 

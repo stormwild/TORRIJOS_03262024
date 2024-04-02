@@ -27,7 +27,7 @@ public static class ItemsList
     }
 
 
-    private static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
+    public static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
         IItemRepository repository, Guid catalogueId, CancellationToken ct)
     {
         var catalogue = await repository.GetItemsListAsync(new CatalogueId(catalogueId), ct);
