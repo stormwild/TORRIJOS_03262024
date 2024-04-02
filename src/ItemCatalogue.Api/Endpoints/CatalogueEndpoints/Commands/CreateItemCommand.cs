@@ -27,7 +27,7 @@ public static class CreateItemCommand
         return group;
     }
 
-    private static async Task<Results<Created<Item>, ValidationProblem, BadRequest>> HandleAsync(
+    public static async Task<Results<Created<Item>, ValidationProblem, BadRequest>> HandleAsync(
         IValidator<CreateItem> validator,
         ICatalogueRepository catalogueRepository,
         ICategoryRepository categoryRepository,

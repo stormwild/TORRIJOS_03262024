@@ -27,7 +27,7 @@ public class GetCatalogueItemsInMemoryTest(ITestOutputHelper output)
     {
         // Arrange
         var repository = Substitute.For<IItemRepository>();
-        _ = repository.GetItemsListAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
+        _ = repository.GetItemsListAsync(Arg.Any<CatalogueId>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
 
         // Act
         var result = await ItemsList.HandleAsync(repository, Guid.NewGuid(), CancellationToken.None);

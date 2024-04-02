@@ -26,7 +26,7 @@ public static class SaveItemCommand
         return group;
     }
 
-    private static async Task<Results<Ok<Item>, ValidationProblem, BadRequest>> HandleAsync(
+    public static async Task<Results<Ok<Item>, ValidationProblem, BadRequest>> HandleAsync(
         IValidator<SaveItem> validator,
         ICatalogueRepository catalogueRepository,
         ICategoryRepository categoryRepository,
