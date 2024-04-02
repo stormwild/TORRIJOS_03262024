@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   itemcatalogue.api:
-    image: itemcatalogueapi:1.0
+    image: itemcatalogue.api:1.0
     build:
       context: .
       dockerfile: ./src/ItemCatalogue.Api/Dockerfile
@@ -9,6 +9,16 @@ services:
       - "5125:5125"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+    networks:
+      - itemcataloguenet
+
+  itemcatalogue.spa.angular.server:
+    image: itemcatalogue.spa.angular.server:1.0
+    build:
+      context: .
+      dockerfile: ./src/ItemCatalogue.Spa.Angular/ItemCatalogue.Spa.Angular.Server/Dockerfile
+    ports:
+      - "5000:5000" # Change this to the port your Angular server is running on
     networks:
       - itemcataloguenet
 

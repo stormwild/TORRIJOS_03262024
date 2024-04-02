@@ -1,12 +1,16 @@
 
+using System.Reflection;
+
+using FluentValidation;
+
 using ItemCatalogue.Api;
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints;
 using ItemCatalogue.Api.Modules.AuthenticationModule;
 using ItemCatalogue.Api.Modules.PersistenceModule;
 using ItemCatalogue.Api.Modules.SwaggerModule;
 using ItemCatalogue.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,7 @@ builder.Services.AddSwaggerConfiguration(builder.Configuration);
 builder.Services.AddDbContext<CatalogueDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddRepositories();
 
 builder.Services.AddAuthentication(ApiKeyAuthentication.SchemeName)
@@ -51,26 +56,10 @@ await app.UseSeeder();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHelloWorld();
 
-app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext db, HttpContext ctx) =>
-{
-    var catalogue = await db.Catalogues.SingleAsync();
-    _logger.LogInformation("Hello, world! {Name}", catalogue.Name);
+app.MapCatalogue();
 
-    return Results.Ok($"Hello, world! {catalogue.Name} {ctx.User.Identity.IsAuthenticated} {ctx.User.Identity.Name}");
-})
-.WithOpenApi(o =>
-{
-    o.Tags = [new OpenApiTag { Name = "Hello World" }];
-    o.Summary = "Hello World";
-    o.Description = "A simple hello world endpoint";
-
-    return o;
-})
-.Produces<string>(StatusCodes.Status200OK, "text/plain")
-.RequireAuthorization();
-
-app.MapGetCatalogueItems();
 
 app.Run();
 

@@ -1,3 +1,5 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace ItemCatalogue.Core.Models;
 
 public record CategoryId(Guid Value);
