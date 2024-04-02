@@ -1,8 +1,11 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Commands;
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Queries;
 
-namespace ItemCatalogue.Api;
+using Microsoft.OpenApi.Models;
 
-public static class Catalogue
+namespace ItemCatalogue.Api.Endpoints.CatalogueEndpoints;
+
+public static class CatalogueEndpoints
 {
     public static void MapCatalogue(this WebApplication app)
     {
@@ -10,6 +13,8 @@ public static class Catalogue
 
         group.MapItemsList();
         group.MapItemGetById();
+
+        group.MapCreateItem();
 
         group.WithOpenApi(o =>
         {

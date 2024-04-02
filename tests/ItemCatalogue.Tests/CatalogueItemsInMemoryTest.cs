@@ -2,8 +2,8 @@ using System.Diagnostics.CodeAnalysis;
 
 using FluentAssertions;
 
-using ItemCatalogue.Api;
-using ItemCatalogue.Api.Endpoints.Catalogue.Queries;
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Dtos;
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Queries;
 using ItemCatalogue.Core.Models;
 using ItemCatalogue.Core.Repositories;
 
@@ -26,7 +26,7 @@ public class GetCatalogueItemsInMemoryTest(ITestOutputHelper output)
     public async Task GetCatalogueItems_ReturnsNotFound_WhenNoCatalogueIsFound()
     {
         // Arrange
-        var repository = Substitute.For<ICatalogueRepository>();
+        var repository = Substitute.For<IItemRepository>();
         _ = repository.GetItemsListAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
 
         // Act

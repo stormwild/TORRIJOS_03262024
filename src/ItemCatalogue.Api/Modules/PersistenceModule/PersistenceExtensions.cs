@@ -12,6 +12,8 @@ public static class PersistenceExtensions
     public static void AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<ICatalogueRepository, CatalogueRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IItemRepository, ItemRepository>();
     }
 
     public static async Task UseSeeder(this WebApplication app)

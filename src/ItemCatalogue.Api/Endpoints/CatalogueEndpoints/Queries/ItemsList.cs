@@ -1,9 +1,12 @@
-﻿using ItemCatalogue.Api.Endpoints.Catalogue.Queries;
+﻿using System.Diagnostics.CodeAnalysis;
+
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Dtos;
+using ItemCatalogue.Core.Models;
 using ItemCatalogue.Core.Repositories;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 
-namespace ItemCatalogue.Api;
+namespace ItemCatalogue.Api.Endpoints.CatalogueEndpoints.Queries;
 
 public static class ItemsList
 {
@@ -25,20 +28,21 @@ public static class ItemsList
 
 
     private static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
-        ICatalogueRepository repository, Guid catalogueId, CancellationToken ct)
+        IItemRepository repository, Guid catalogueId, CancellationToken ct)
     {
-        var catalogue = await repository.GetItemsListAsync(catalogueId, ct);
+        var catalogue = await repository.GetItemsListAsync(new CatalogueId(catalogueId), ct);
 
         return catalogue is null
             ? TypedResults.NotFound()
             : TypedResults.Ok(new CatalogueItems(
                 catalogue.Id.Value,
                 catalogue.Name,
-                catalogue.Items.Select(i => new Item(
+                catalogue.Items.Select(i => new ItemDto(
                     i.Id.Value,
                     i.Name,
                     i.PrimaryCategory.Name))
                     .Take(MAX_ITEMS)
                     .ToList().AsReadOnly()));
     }
+
 }

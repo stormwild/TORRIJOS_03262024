@@ -7,4 +7,7 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\itemcatalogue.spa.angular.client\</BuildOutputFolder>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(OS)' == 'Unix' " >
+    <FrameworkPathOverride>/usr/local/share/dotnet/shared/Microsoft.NETCore.App/8.0.3/mscorlib.dll</FrameworkPathOverride>
+</PropertyGroup>
 </Project>

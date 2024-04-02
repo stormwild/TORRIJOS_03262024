@@ -1,12 +1,16 @@
 
+using System.Reflection;
+
+using FluentValidation;
+
 using ItemCatalogue.Api;
+using ItemCatalogue.Api.Endpoints.CatalogueEndpoints;
 using ItemCatalogue.Api.Modules.AuthenticationModule;
 using ItemCatalogue.Api.Modules.PersistenceModule;
 using ItemCatalogue.Api.Modules.SwaggerModule;
 using ItemCatalogue.Infrastructure;
 
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,7 @@ builder.Services.AddSwaggerConfiguration(builder.Configuration);
 builder.Services.AddDbContext<CatalogueDbContext>(options => options.UseSqlite(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 builder.Services.AddRepositories();
 
 builder.Services.AddAuthentication(ApiKeyAuthentication.SchemeName)
