@@ -53,8 +53,8 @@ app.UseAuthorization();
 
 app.MapHelloWorld();
 
-app.MapItemsList();
-app.MapItemGetById();
+app.MapCatalogue();
+
 
 app.Run();
 

@@ -2,7 +2,6 @@
 using ItemCatalogue.Core.Repositories;
 
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.OpenApi.Models;
 
 namespace ItemCatalogue.Api;
 
@@ -10,19 +9,20 @@ public static class ItemsList
 {
     public static readonly int MAX_ITEMS = 1000;
 
-    public static void MapItemsList(this WebApplication app)
+    public static RouteGroupBuilder MapItemsList(this RouteGroupBuilder group)
     {
-        app.MapGet("/catalogue/{catalogueId}/items", HandleAsync)
-        .WithOpenApi(o =>
-        {
-            o.Tags = [new OpenApiTag { Name = "Catalog Items" }];
-            o.Summary = "Returns Items in the given Catalogue";
-            o.Description = "Returns Items in the given Catalogue limited to 1000 items";
+        group.MapGet("/{catalogueId}/items", HandleAsync)
+                .WithOpenApi(o =>
+                {
+                    o.Summary = "Returns Items in the given Catalogue";
+                    o.Description = "Returns Items in the given Catalogue limited to 1000 items";
 
-            return o;
-        })
-        .RequireAuthorization(); ;
+                    return o;
+                });
+
+        return group;
     }
+
 
     private static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
         ICatalogueRepository repository, Guid catalogueId, CancellationToken ct)

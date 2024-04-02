@@ -3,24 +3,23 @@ using ItemCatalogue.Api.Endpoints.Catalogue.Queries;
 using ItemCatalogue.Core.Repositories;
 
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.OpenApi.Models;
 
 namespace ItemCatalogue.Api;
 
 public static class ItemGetById
 {
-    public static void MapItemGetById(this WebApplication app)
+    public static RouteGroupBuilder MapItemGetById(this RouteGroupBuilder group)
     {
-        app.MapGet("/catalogue/{catalogueId}/items/{itemId}", HandleAsync)
+        group.MapGet("/{catalogueId}/items/{itemId}", HandleAsync)
         .WithOpenApi(o =>
         {
-            o.Tags = [new OpenApiTag { Name = "Catalog Item" }];
             o.Summary = "Returns Item in the given Catalogue";
             o.Description = "Returns Item in the given Catalogue by Catalogue and Item's Id";
 
             return o;
-        })
-        .RequireAuthorization();
+        });
+
+        return group;
     }
 
     private static async Task<Results<Ok<Item>, NotFound>> HandleAsync(ICatalogueRepository repository, Guid catalogueId, Guid itemId, CancellationToken ct)
