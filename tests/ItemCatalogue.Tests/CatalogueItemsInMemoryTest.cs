@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
 
 using ItemCatalogue.Api;
+using ItemCatalogue.Api.Endpoints.Catalogue.Queries;
 using ItemCatalogue.Core.Models;
 using ItemCatalogue.Core.Repositories;
 
@@ -26,10 +27,10 @@ public class GetCatalogueItemsInMemoryTest(ITestOutputHelper output)
     {
         // Arrange
         var repository = Substitute.For<ICatalogueRepository>();
-        _ = repository.GetCatalogueItemsAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
+        _ = repository.GetItemsListAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
 
         // Act
-        var result = await CatalogueItemsList.HandleAsync(repository, Guid.NewGuid(), CancellationToken.None);
+        var result = await ItemsList.HandleAsync(repository, Guid.NewGuid(), CancellationToken.None);
         var notFound = result.Result as NotFound;
 
         // Assert

@@ -14,11 +14,18 @@ public class CatalogueRepository : ICatalogueRepository
         _db = db;
     }
 
-    public async Task<Catalogue?> GetCatalogueItemsAsync(Guid catalogueId, CancellationToken ct)
+    public async Task<Catalogue?> GetItemsListAsync(Guid catalogueId, CancellationToken ct)
     {
         return await _db.Catalogues
             .Include(c => c.Items)
             .ThenInclude(i => i.PrimaryCategory)
             .FirstOrDefaultAsync(c => c.Id == new CatalogueId(catalogueId), ct);
+    }
+
+    public async Task<Item?> GetItemByIdAsync(Guid catalogueId, Guid itemId, CancellationToken ct)
+    {
+        return await _db.Items
+            .Include(i => i.PrimaryCategory)
+            .FirstOrDefaultAsync(i => i.Id == new ItemId(itemId) && i.CatalogueId == new CatalogueId(catalogueId), ct);
     }
 }

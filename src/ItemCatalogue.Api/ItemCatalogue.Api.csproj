@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Endpoints\Catalogue\Commands\" />
+    <Folder Include="Endpoints\Catalogue\Dtos\" />
   </ItemGroup>
 
 </Project>

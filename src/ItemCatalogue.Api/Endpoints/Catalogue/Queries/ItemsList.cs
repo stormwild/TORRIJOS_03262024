@@ -1,15 +1,16 @@
-﻿using ItemCatalogue.Core.Repositories;
+﻿using ItemCatalogue.Api.Endpoints.Catalogue.Queries;
+using ItemCatalogue.Core.Repositories;
 
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.OpenApi.Models;
 
 namespace ItemCatalogue.Api;
 
-public static class CatalogueItemsList
+public static class ItemsList
 {
     public static readonly int MAX_ITEMS = 1000;
 
-    public static void MapGetCatalogueItems(this WebApplication app)
+    public static void MapItemsList(this WebApplication app)
     {
         app.MapGet("/catalogue/{catalogueId}/items", HandleAsync)
         .WithOpenApi(o =>
@@ -23,10 +24,10 @@ public static class CatalogueItemsList
         .RequireAuthorization(); ;
     }
 
-    public static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
+    private static async Task<Results<Ok<CatalogueItems>, NotFound>> HandleAsync(
         ICatalogueRepository repository, Guid catalogueId, CancellationToken ct)
     {
-        var catalogue = await repository.GetCatalogueItemsAsync(catalogueId, ct);
+        var catalogue = await repository.GetItemsListAsync(catalogueId, ct);
 
         return catalogue is null
             ? TypedResults.NotFound()
@@ -41,7 +42,3 @@ public static class CatalogueItemsList
                     .ToList().AsReadOnly()));
     }
 }
-
-public record CatalogueItems(Guid Id, string Name, IReadOnlyList<Item> Items);
-
-public record Item(Guid Id, string Name, string Category);
