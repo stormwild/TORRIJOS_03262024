@@ -56,18 +56,13 @@ public static class SaveItemCommand
         }
 
         var catalogue = await catalogueRepository.GetCatalogueAsync(new CatalogueId(catalogueId), ct);
-        // var category = await categoryRepository.GetCategoryAsync(saveItem.PrimaryCategoryId(), ct);
-        // var categories = await categoryRepository.GetCategoriesByIdsAsync(saveItem.CategoryIds(), ct);
-
-        //  || category is null || categories.Count != saveItem.CategoryIds.Count
         if (catalogue is null)
         {
             return TypedResults.BadRequest();
         }
 
-        item.MapToNewValues(saveItem); // catalogue, category, categories
+        item.MapToNewValues(saveItem);
         var entries = await itemRepository.CommitAsync(ct);
-        // var (updatedItem, entries) = await itemRepository.SaveItemAsync(item, ct);
 
         return entries > 0
                ? TypedResults.Ok(item)
