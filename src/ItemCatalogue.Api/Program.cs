@@ -51,24 +51,7 @@ await app.UseSeeder();
 app.UseAuthentication();
 app.UseAuthorization();
 
-
-app.MapGet("/", async (ILogger<Program> _logger, CatalogueDbContext db, HttpContext ctx) =>
-{
-    var catalogue = await db.Catalogues.SingleAsync();
-    _logger.LogInformation("Hello, world! {Name}", catalogue.Name);
-
-    return Results.Ok($"Hello, world! {catalogue.Name} {ctx.User.Identity.IsAuthenticated} {ctx.User.Identity.Name}");
-})
-.WithOpenApi(o =>
-{
-    o.Tags = [new OpenApiTag { Name = "Hello World" }];
-    o.Summary = "Hello World";
-    o.Description = "A simple hello world endpoint";
-
-    return o;
-})
-.Produces<string>(StatusCodes.Status200OK, "text/plain")
-.RequireAuthorization();
+app.MapHelloWorld();
 
 app.MapGetCatalogueItems();
 

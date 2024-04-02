@@ -1,15 +1,11 @@
-﻿using ItemCatalogue.Core.Models;
-using ItemCatalogue.Core.Repositories;
-using ItemCatalogue.Infrastructure;
+﻿using ItemCatalogue.Core.Repositories;
 
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 namespace ItemCatalogue.Api;
 
-public static class GetCatalogueItemsEndpoint
+public static class CatalogueItemsList
 {
     public static readonly int MAX_ITEMS = 1000;
 
@@ -41,10 +37,11 @@ public static class GetCatalogueItemsEndpoint
                     i.Id.Value,
                     i.Name,
                     i.PrimaryCategory.Name))
+                    .Take(MAX_ITEMS)
                     .ToList().AsReadOnly()));
     }
 }
 
-public record CatalogueItems(Guid Id, string Name, IReadOnlyCollection<Item> Items);
+public record CatalogueItems(Guid Id, string Name, IReadOnlyList<Item> Items);
 
 public record Item(Guid Id, string Name, string Category);

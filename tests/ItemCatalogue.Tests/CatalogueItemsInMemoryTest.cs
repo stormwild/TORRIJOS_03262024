@@ -29,7 +29,7 @@ public class GetCatalogueItemsInMemoryTest(ITestOutputHelper output)
         _ = repository.GetCatalogueItemsAsync(Arg.Any<Guid>(), Arg.Any<CancellationToken>()).ReturnsNullForAnyArgs();
 
         // Act
-        var result = await GetCatalogueItemsEndpoint.HandleAsync(repository, Guid.NewGuid(), CancellationToken.None);
+        var result = await CatalogueItemsList.HandleAsync(repository, Guid.NewGuid(), CancellationToken.None);
         var notFound = result.Result as NotFound;
 
         // Assert

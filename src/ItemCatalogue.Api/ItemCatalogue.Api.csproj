@@ -22,4 +22,8 @@
     <Content Include="Db\**" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\Catalogue\Commands\" />
+  </ItemGroup>
+
 </Project>
