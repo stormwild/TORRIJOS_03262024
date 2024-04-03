@@ -11,6 +11,7 @@ public static class ItemGetById
     public static RouteGroupBuilder MapItemGetById(this RouteGroupBuilder group)
     {
         group.MapGet("/{catalogueId}/items/{itemId}", HandleAsync)
+            .WithName("GetItemById")
              .WithOpenApi(o =>
              {
                  o.Summary = "Returns Item in the given Catalogue";

@@ -33,7 +33,7 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
         /// A simple hello world endpoint
         /// </remarks>
         /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<string> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<string> GetHelloAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>
@@ -44,6 +44,36 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
         /// </remarks>
         /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<CatalogueItems> GetCatalogueItemsAsync(System.Guid catalogueId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns Item in the given Catalogue by Catalogue and Item's Id
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<CatalogueItem> GetItemByIdAsync(System.Guid catalogueId, System.Guid itemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns the newly created Items in the given Catalogue
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Item> CreateItemAsync(System.Guid catalogueId, System.Guid itemId, CreateItem createItem, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Updates the given Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns the newly created Items in the given Catalogue with the new values
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<Item> UpdateItemAsync(System.Guid catalogueId, System.Guid itemId, SaveItem saveItem, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
     }
 
@@ -99,7 +129,7 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
         /// A simple hello world endpoint
         /// </remarks>
         /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<string> GetAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public virtual async System.Threading.Tasks.Task<string> GetHelloAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var client_ = _httpClient;
             var disposeClient_ = false;
@@ -112,7 +142,8 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
 
                     var urlBuilder_ = new System.Text.StringBuilder();
                     if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
-                    // Operation Path: ""
+                    // Operation Path: "hello"
+                    urlBuilder_.Append("hello");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -145,6 +176,12 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
                                 throw new ItemCatalogueApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
                             return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("A server side error occurred.", status_, responseText_, headers_, null);
                         }
                         else
                         {
@@ -229,6 +266,293 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
                         }
                         else
                         if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Returns Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns Item in the given Catalogue by Catalogue and Item's Id
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<CatalogueItem> GetItemByIdAsync(System.Guid catalogueId, System.Guid itemId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (catalogueId == null)
+                throw new System.ArgumentNullException("catalogueId");
+
+            if (itemId == null)
+                throw new System.ArgumentNullException("itemId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "catalogue/{catalogueId}/items/{itemId}"
+                    urlBuilder_.Append("catalogue/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(catalogueId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/items/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(itemId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<CatalogueItem>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ItemCatalogueApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 404)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Creates a new Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns the newly created Items in the given Catalogue
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Item> CreateItemAsync(System.Guid catalogueId, System.Guid itemId, CreateItem createItem, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (catalogueId == null)
+                throw new System.ArgumentNullException("catalogueId");
+
+            if (itemId == null)
+                throw new System.ArgumentNullException("itemId");
+
+            if (createItem == null)
+                throw new System.ArgumentNullException("createItem");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(createItem, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "catalogue/{catalogueId}/items/{itemId}"
+                    urlBuilder_.Append("catalogue/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(catalogueId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/items/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(itemId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 201)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Item>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ItemCatalogueApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
+                        {
+                            string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("A server side error occurred.", status_, responseText_, headers_, null);
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ItemCatalogueApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <summary>
+        /// Updates the given Item in the given Catalogue
+        /// </summary>
+        /// <remarks>
+        /// Returns the newly created Items in the given Catalogue with the new values
+        /// </remarks>
+        /// <exception cref="ItemCatalogueApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<Item> UpdateItemAsync(System.Guid catalogueId, System.Guid itemId, SaveItem saveItem, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (catalogueId == null)
+                throw new System.ArgumentNullException("catalogueId");
+
+            if (itemId == null)
+                throw new System.ArgumentNullException("itemId");
+
+            if (saveItem == null)
+                throw new System.ArgumentNullException("saveItem");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = System.Text.Json.JsonSerializer.SerializeToUtf8Bytes(saveItem, _settings.Value);
+                    var content_ = new System.Net.Http.ByteArrayContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("PUT");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "catalogue/{catalogueId}/items/{itemId}"
+                    urlBuilder_.Append("catalogue/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(catalogueId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append("/items/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(itemId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<Item>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ItemCatalogueApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        if (status_ == 400)
                         {
                             string responseText_ = ( response_.Content == null ) ? string.Empty : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
                             throw new ItemCatalogueApiException("A server side error occurred.", status_, responseText_, headers_, null);
@@ -373,12 +697,12 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
         public string Name { get; set; }
 
         [System.Text.Json.Serialization.JsonPropertyName("items")]
-        public System.Collections.Generic.ICollection<Item> Items { get; set; }
+        public System.Collections.Generic.ICollection<CatalogueItem> Items { get; set; }
 
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
-    public partial record Item
+    public partial record CatalogueItem
     {
 
         [System.Text.Json.Serialization.JsonPropertyName("id")]
@@ -389,6 +713,102 @@ namespace ItemCatalogue.Spa.Angular.Server.Clients
 
         [System.Text.Json.Serialization.JsonPropertyName("category")]
         public string Category { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record Item
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public ItemId Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("catalogueId")]
+        public CatalogueId CatalogueId { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("primaryCategoryId")]
+        public CategoryId PrimaryCategoryId { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("primaryCategory")]
+        public Category PrimaryCategory { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("categories")]
+        public System.Collections.Generic.ICollection<Category> Categories { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record ItemId
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public System.Guid? Value { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record CatalogueId
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public System.Guid? Value { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record CategoryId
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("value")]
+        public System.Guid? Value { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record Category
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        public CategoryId Id { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record CreateItem
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("primaryCategoryId")]
+        public System.Guid? PrimaryCategoryId { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("categoryIds")]
+        public System.Collections.Generic.ICollection<System.Guid> CategoryIds { get; set; }
+
+    }
+
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "14.0.7.0 (NJsonSchema v11.0.0.0 (Newtonsoft.Json v13.0.0.0))")]
+    public partial record SaveItem
+    {
+
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        public string Name { get; set; }
+
+        [System.Text.Json.Serialization.JsonPropertyName("description")]
+        public string Description { get; set; }
 
     }
 

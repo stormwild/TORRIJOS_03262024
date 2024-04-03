@@ -18,10 +18,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "paths": {
+      "@types": ["./src/types.ts"], // Add your path alias here
+      "@catalogclient/*": ["./src/app/catalogclient/*"], // Add your path alias here
+      "@catalog/catalog/*": ["./src/app/catalog/catalog/*"], // Add your path alias here
+      "@catalog/item/*": ["./src/app/catalog/item/*"] // Add your path alias here
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
