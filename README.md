@@ -2,6 +2,10 @@
 
 ## Demo Working
 
+[Video Demo](/docs/itemcatalogueapi-working.mp4)
+
+![Video Demo Embed](/docs/itemcatalogueapi-working.mp4)
+
 Currently only retrieves data from the protected api using an X-Api-Key header and value
 
 The left image shows the Spa BFF Api is able to display data coming from the protected api.
@@ -67,16 +71,17 @@ $ tree -L 1
 The project is composed of 5 src projects.
 
 The `ItemCatalogue.Api` is dependent on the Core and Infrastructure projects
- 
+
 ```bash
 |-- src
 |   |-- ItemCatalogue.Api
 |   |-- ItemCatalogue.Core
 |   |-- ItemCatalogue.Infrastructure
 ```
+
 In Visual Studio, configure the solution to start multiple projects with the Api the first item to start.
 
-![](/docs/visual-studio-2022-multiple-start-up-projects.png) 
+![](/docs/visual-studio-2022-multiple-start-up-projects.png)
 
 We may need to run `pnpm i` on the spa client. The spa was modified to use pnpm instead of npm.
 
@@ -88,7 +93,6 @@ pnpm i
 Only the Api was dockerized with the docker compose running the api.
 
 ## Setup
-
 
 When Testing in Swagger or .http use the following:
 
