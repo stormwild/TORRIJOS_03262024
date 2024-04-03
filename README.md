@@ -4,8 +4,6 @@
 
 [Video Demo](/docs/itemcatalogueapi-working.mp4)
 
-![Video Demo Embed](/docs/itemcatalogueapi-working.mp4)
-
 Currently only retrieves data from the protected api using an X-Api-Key header and value
 
 The left image shows the Spa BFF Api is able to display data coming from the protected api.
