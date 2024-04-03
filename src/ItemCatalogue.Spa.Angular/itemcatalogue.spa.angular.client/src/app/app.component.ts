@@ -8,6 +8,7 @@ import { RouterModule, RouterOutlet } from '@angular/router';
   styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
+  public opened: boolean = false;
   ngOnInit(): void {}
   title = 'Catalogue App';
 }
