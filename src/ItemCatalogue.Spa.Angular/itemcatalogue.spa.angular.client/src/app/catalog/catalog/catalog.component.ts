@@ -11,6 +11,8 @@ import {
 })
 export class CatalogComponent implements OnInit {
   public catalogue: CatalogueItems | undefined;
+  public displayedColumns: string[] = ['id', 'name', 'category'];
+  public dataSource: CatalogueItems[] = [];
 
   constructor(private client: CatalogueClient) {}
 
@@ -24,6 +26,7 @@ export class CatalogComponent implements OnInit {
       .subscribe((catalogue) => {
         console.log('catalogue', catalogue);
         this.catalogue = catalogue;
+        this.dataSource = this.catalogue?.items ?? [];
       });
   }
 }

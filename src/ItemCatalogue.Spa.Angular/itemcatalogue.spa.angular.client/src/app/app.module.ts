@@ -8,10 +8,22 @@ import { CatalogueClient } from '@catalogclient/itemcatalogue.api.client';
 import { CatalogComponent } from './catalog/catalog/catalog.component';
 import { ItemComponent } from './catalog/item/item.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
+import { CommonModule } from '@angular/common';
+import { RouterModule, RouterOutlet } from '@angular/router';
 @NgModule({
   declarations: [AppComponent, CatalogComponent, ItemComponent],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    MatTableModule,
+    CommonModule,
+    RouterOutlet,
+    RouterModule,
+    MatCardModule,
+  ],
   providers: [CatalogueClient, provideAnimationsAsync()], // Add the missing module to the providers array
   bootstrap: [AppComponent],
 })

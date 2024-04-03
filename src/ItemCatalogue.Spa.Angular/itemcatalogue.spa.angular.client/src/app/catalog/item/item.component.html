@@ -1,1 +1,11 @@
-<p>item works!</p>
+<h1>Catalogue Item</h1>
+
+<a mat-raised-button [routerLink]="['/catalog']">&larr; Back</a>
+
+<mat-card>
+  <mat-card-content>
+    <p><small>{{item?.id}}</small></p>
+    <h3>{{item?.name}}</h3>
+    <p>{{item?.category}}</p>
+  </mat-card-content>
+</mat-card>

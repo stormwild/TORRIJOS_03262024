@@ -12,12 +12,12 @@ const routes: Routes = [
   {
     path: 'catalog',
     component: CatalogComponent,
-    title: 'Catalogue',
+    title: 'Catalogue App',
   },
   {
-    path: 'item',
+    path: 'item/:id',
     component: ItemComponent,
-    title: 'Item Details',
+    title: 'Item Details - Catalogue App',
   },
 ];
 
