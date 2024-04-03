@@ -24,4 +24,9 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Endpoints\CatalogueEndpoints\Queries\" />
+    <Folder Include="Options\" />
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,7 @@ public static class CreateItemCommand
     public static RouteGroupBuilder MapCreateItem(this RouteGroupBuilder group)
     {
         group.MapPost("/{catalogueId}/items/{itemId}", HandleAsync)
+             .WithName("CreateItem")
              .WithOpenApi(o =>
              {
                  o.Summary = "Creates a new Item in the given Catalogue";

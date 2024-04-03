@@ -15,6 +15,7 @@ public static class ItemsList
     public static RouteGroupBuilder MapItemsList(this RouteGroupBuilder group)
     {
         group.MapGet("/{catalogueId}/items", HandleAsync)
+                .WithName("GetCatalogueItems")
                 .WithOpenApi(o =>
                 {
                     o.Summary = "Returns Items in the given Catalogue";

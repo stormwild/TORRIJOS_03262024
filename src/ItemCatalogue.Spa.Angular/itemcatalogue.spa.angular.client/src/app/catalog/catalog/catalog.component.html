@@ -1,0 +1,22 @@
+<p>catalog works!</p>
+<h1 id="tableLabel">Catalogue</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<h2>Catalogue Items {{catalogue ? catalogue.name : 'no result'}}</h2>
+<table *ngIf="catalogue">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of catalogue.items">
+      <td>{{ item.id }}</td>
+      <td>{{ item.name }}</td>
+      <td>{{ item.category }}</td>
+    </tr>
+  </tbody>
+</table>

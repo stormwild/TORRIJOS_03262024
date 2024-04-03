@@ -15,6 +15,7 @@ public static class SaveItemCommand
     public static RouteGroupBuilder MapSaveItem(this RouteGroupBuilder group)
     {
         group.MapPut("/{catalogueId}/items/{itemId}", HandleAsync)
+             .WithName("UpdateItem")
              .WithOpenApi(o =>
              {
                  o.Summary = "Updates the given Item in the given Catalogue";
